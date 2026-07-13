@@ -1,0 +1,151 @@
+#include<iostream>
+using namespace std;
+
+#pragma pack(1)
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+typedef struct node NODE;
+typedef struct node* PNODE;
+
+class SinglyLL
+{
+    private:            //abstraction
+        PNODE first;
+        int iCnt = 0;
+
+    public:
+        SinglyLL();
+        void Display();
+        int Count();
+        void InsertFirst(int iNo);
+        void InsertLast(int iNo);
+        void InsertAtPos(int iNo, int iPos);
+        void DeleteFirst();
+        void DeleteLast();
+        void DeleteAtPos(int iPos);
+};
+
+SinglyLL::SinglyLL()        //class name::constructor name
+{
+    this -> first = NULL;
+    this -> iCnt = 0;
+}
+
+void SinglyLL :: Display()
+{
+    PNODE temp = NULL;
+    int i = 0;
+
+    for(int i=1; i<= this -> iCnt; i++, temp = temp -> next)
+    {
+        cout<<" | "<<temp -> data<<" | -> ";
+    }
+    cout<<"NULL"<<endl;
+}
+
+int SinglyLL :: Count()
+{
+    return this -> iCnt;
+}
+
+void SinglyLL :: InsertFirst(int iNo)
+{
+    PNODE newn = NULL;
+
+    newn = new NODE;
+
+    newn -> data = iNo;
+    newn -> next = NULL;
+
+    if(this -> first ==NULL)
+    {
+        this -> first = newn;
+    }
+    else
+    {
+        newn -> next = this -> first;
+        this -> first = newn;
+    }
+    this -> iCnt++;         //IMPORTANT
+}
+
+void SinglyLL :: InsertLast(int iNo)
+{
+    PNODE newn = NULL;
+    PNODE temp = NULL;    
+
+    newn = new NODE;
+
+    newn -> data = iNo;
+    newn -> next = NULL;
+
+    if(this -> first ==NULL)
+    {
+        this -> first = newn;
+    }
+    else
+    {
+        temp = this -> first;
+        while(temp -> next != NULL)
+        {
+            temp = temp -> next;
+        }
+        temp -> next = newn;
+    }
+    this -> iCnt++;         //IMPORTANT
+}
+
+void SinglyLL :: InsertAtPos(int iNo, int iPos)
+{}
+
+void SinglyLL :: DeleteFirst()
+{
+    PNODE temp = NULL;
+
+    if(this -> first == NULL)
+    {
+        return;
+    }
+    else if(this -> iCnt == 1)
+    {
+        delete this -> first;
+        this -> first = NULL;
+    }
+    else
+    {
+
+    }
+    this -> iCnt--;
+}
+
+void SinglyLL :: DeleteLast()
+{}
+
+void SinglyLL :: DeleteAtPos(int iPos)
+{}
+
+
+int main()
+{
+    int iRet = 0;
+    SinglyLL sobj;
+
+    sobj.InsertFirst(51);
+    sobj.InsertFirst(21);   
+    sobj.InsertFirst(11);
+
+    sobj.InsertLast(101);
+    sobj.InsertLast(111);
+    sobj.InsertLast(121);
+
+    sobj.Display();
+
+    iRet = sobj.Count();
+    cout<<"Number of nodes are: "<<iRet<<endl;
+
+    return 0;
+}
